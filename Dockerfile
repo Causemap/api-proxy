@@ -1,4 +1,4 @@
-FROM hepmaster/nginx-template-image
+FROM shepmaster/nginx-template-image
 ADD htpasswd /etc/nginx/.htpasswd
 
 CMD ['nginx']
