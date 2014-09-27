@@ -1,5 +1,5 @@
 upstream elasticsearch {
-  server ${ES_PORT_9200_TCP_ADDR}:${ES_PORT_9200_TCP_ADDR};
+  server ${ES_PORT_9200_TCP_ADDR}:${ES_PORT_9200_TCP_PORT};
   keepalive 64;
 }
 
