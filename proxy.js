@@ -11,7 +11,7 @@ var proxy = http_proxy.createProxyServer({
   ].join('')
 })
 
-var basic_auth = auth.basic({
+var basic_auth = http_auth.basic({
   realm: 'Causemap Search API',
   file: [ __dirname, 'search_api.htpasswd'].join('/')
 })
