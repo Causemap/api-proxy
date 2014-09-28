@@ -24,7 +24,7 @@ var app = connect()
     // check if the request is for a search endpoint or a GET/OPTIONS request
     if (
       /_search$/.test(req.url.split('?')[0]) ||
-      ['GET', 'OPTIONS'].indexof(req.method) != -1
+      ['GET', 'OPTIONS'].indexOf(req.method) != -1
     ){
       // send it along to the proxy
       return proxy.web(req, res);
