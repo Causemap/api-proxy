@@ -1,0 +1,24 @@
+{
+  "name": "api-proxy",
+  "version": "0.0.0",
+  "description": "example",
+  "main": "proxy.js",
+  "dependencies": {
+    "http-auth": "^2.2.0",
+    "http-proxy": "^1.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Causemap/api-proxy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Causemap/api-proxy/issues"
+  },
+  "homepage": "https://github.com/Causemap/api-proxy"
+}
