@@ -4,6 +4,7 @@
   "description": "example",
   "main": "proxy.js",
   "dependencies": {
+    "connect": "^3.2.0",
     "http-auth": "^2.2.0",
     "http-proxy": "^1.4.3"
   },
