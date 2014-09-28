@@ -21,8 +21,11 @@ var basic_auth = http_auth.basic({
 
 var app = connect()
   .use(function(req, res, next){
-    // check if the request is for a search endpoint
-    if (/_search$/.test(req.url.split('?')[0])){
+    // check if the request is for a search endpoint or a GET/OPTIONS request
+    if (
+      /_search$/.test(req.url.split('?')[0]) ||
+      ['GET', 'OPTIONS'].indexof(req.method) != -1
+    ){
       // send it along to the proxy
       return proxy.web(req, res);
     }
