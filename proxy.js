@@ -19,8 +19,15 @@ var basic_auth = http_auth.basic({
   file: [ __dirname, 'search_api.htpasswd'].join('/')
 })
 
+function handle_error(error){
+  console.error(error)
+}
+
 var app = connect()
   .use(function(req, res, next){
+    req.socket.on("error", handle_error);
+    res.socket.on("error", handle_error);
+
     // check if the request is for a search endpoint or a GET/OPTIONS request
     if (
       /_search$/.test(req.url.split('?')[0]) ||
