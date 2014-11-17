@@ -44,6 +44,7 @@ if (cluster.isMaster) {
       // check if the request is for a search endpoint or a GET/OPTIONS request
       if (
         /_search$/.test(req.url.split('?')[0]) ||
+        /_suggest$/.test(req.url.split('?')[0]) ||
         ['GET', 'OPTIONS'].indexOf(req.method) != -1
       ){
         // send it along to the proxy
