@@ -1,11 +1,5 @@
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
-var http = require('http');
-var connect = require('connect');
-var express = require('express');
-var http_proxy = require('http-proxy');
-
-var search_proxy = require('./proxy-apps/search');
 
 
 if (cluster.isMaster) {
@@ -19,6 +13,14 @@ if (cluster.isMaster) {
     cluster.fork();
   });
 } else {
+  var http = require('http');
+  var connect = require('connect');
+  var express = require('express');
+  var http_proxy = require('http-proxy');
+
+  var search_proxy = require('./proxy-apps/search');
+  var web_proxy = http_proxy.createProxyServer({});
+
   http.createServer(search_proxy).listen(9200)
   console.log('listening on port 9200')
 
@@ -32,6 +34,26 @@ if (cluster.isMaster) {
   }
 
   var top_app = express();
+
+  top_app.use(function(req, res, next){
+    // check if the subdomain is something other than api
+    if (!host.match(/^api\..*/i)){
+
+      // if so, proxy the request to the web app
+      var target = [
+        'http://',
+        process.env['WEB_PORT_3000_TCP_ADDR'],
+        ':',
+        process.env['WEB_PORT_3000_TCP_PORT']
+      ].join('')
+
+      return web_proxy.web(req, res, {
+        target: target
+      })
+    }
+
+    return next()
+  })
 
   top_app.all(/^\/search/, removeFirstWordInURL, search_proxy);
   top_app.all(/^\/db/, removeFirstWordInURL, require('./proxy-apps/db'));
