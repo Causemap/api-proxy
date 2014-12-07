@@ -37,6 +37,7 @@ if (cluster.isMaster) {
 
   top_app.use(function(req, res, next){
     // check if the subdomain is something other than api
+    var host = req.header("host");
     if (!host.match(/^api\..*/i)){
 
       // if so, proxy the request to the web app
