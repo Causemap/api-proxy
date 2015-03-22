@@ -43,9 +43,9 @@ if (cluster.isMaster) {
       // if so, proxy the request to the web app
       var target = [
         'http://',
-        process.env['WEB_PORT_3000_TCP_ADDR'],
+        process.env['WEB_PORT_3000_TCP_ADDR'] || 'localhost',
         ':',
-        process.env['WEB_PORT_3000_TCP_PORT']
+        process.env['WEB_PORT_3000_TCP_PORT'] || 3000
       ].join('')
 
       return web_proxy.web(req, res, {
